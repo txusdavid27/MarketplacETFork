@@ -2,23 +2,16 @@
 // Este archivo ha sido generado por la arquitectura JavaTM para la implantación de la referencia de enlace (JAXB) XML v2.3.2 
 // Visite <a href="https://javaee.github.io/jaxb-v2/">https://javaee.github.io/jaxb-v2/</a> 
 // Todas las modificaciones realizadas en este archivo se perderán si se vuelve a compilar el esquema de origen. 
-// Generado el: 2023.03.27 a las 12:52:28 AM COT 
+// Generado el: 2023.03.27 a las 03:07:47 PM COT 
 //
 
 
 package com.proyecto.ecoturist.servicio;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlType;
-import lombok.Getter;
-
-import java.io.Serializable;
 
 
 /**
@@ -58,10 +51,7 @@ import java.io.Serializable;
     "foto",
     "nombre"
 })
-
-
-public class Servicio implements Serializable {
-
+public class Servicio {
 
     protected long id;
     protected int codigo;
@@ -227,7 +217,4 @@ public class Servicio implements Serializable {
         this.nombre = value;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
 }

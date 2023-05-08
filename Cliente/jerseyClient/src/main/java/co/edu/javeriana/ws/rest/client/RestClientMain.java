@@ -26,31 +26,19 @@ public class RestClientMain {
 			int option=0;
 
 			while (!exit) {
-				if(!loggedIn){
-					System.out.println("Bienvenido a ECOTURIST:");
+				System.out.println("Bienvenido a ECOTURIST:");
 			    System.out.println("1. Iniciar sesión");
 			    System.out.println("2. Registrarse");
 			    System.out.println("3. Cerrar Sesion");
 				System.out.println("4. Salir");
-			    option = scanner.nextInt();
+				if (scanner.hasNextInt()) {
+					option = scanner.nextInt();
 				}
+			    
 			    switch (option) {
 			        case 1:
-			            if (loggedIn) {
-			                if (rol.equals("Cliente")) {
-			                    menuCliente();
-								loggedIn=false;
-								username="";
-								System.out.println("Cierre Exitoso.");
-			                    
-			                }else if (rol.equals("Proveedor")) {
-			                    menuProveedor();
-								loggedIn=false;
-								username="";
-								System.out.println("Cierre Exitoso.");
-			                }
-			            } else {
-			                System.out.println("Inicia sesión:");
+			            if (!loggedIn) { 
+							System.out.println("Inicia sesión:");
 			                System.out.println("Usuario:");
 			                String inputUsername = scanner.next();
 			                System.out.println("Contraseña:");
@@ -69,25 +57,48 @@ public class RestClientMain {
 							else {
 			                    System.out.println("Nombre de usuario o contraseña incorrecta.");
 			                }
+			                
+			            } 
+						if (loggedIn) {
+			                if (rol.equals("Cliente")) {
+			                    menuCliente();
+								loggedIn=false;
+								username="";
+								System.out.println("Cierre Exitoso.");
+			                    
+			                }else if (rol.equals("Proveedor")) {
+			                    menuProveedor();
+								loggedIn=false;
+								username="";
+								System.out.println("Cierre Exitoso.");
+			                }
 			            }
 			            break;
 			        case 2:
 			            if (loggedIn) {
 			                System.out.println("Ya has iniciado sesión como " + username + ". Debes cerrar sesión para registrarte con una cuenta diferente.");
 			            } else {
+							
+							
 							System.out.println("Cliente o provedor? 1 o 2");
-							int opt = scanner.nextInt();
-							switch(opt){
-								case 1:
-								registroCliente();
-								break;
-								case 2:
-								registroProveedor();
-								break;
-								default:
-								break;
+							
+							try (Scanner scanner_ = new Scanner(System.in)){
+								int opt = scanner.nextInt();
+								switch(opt){
+									case 1:
+									registroCliente();
+									break;
+									case 2:
+									registroProveedor();
+									break;
+									
+									default:
+									break;
 							}
-			            }
+							
+							}
+						}
+			            
 			            break;
 			        case 3:
 						loggedIn=false;
@@ -111,14 +122,15 @@ public class RestClientMain {
 	}
 
 	private static void menuProveedor() {
+		int option = 0;
 		try (Scanner scanner = new Scanner(System.in)) {
 			while (true) {
 			    System.out.println("Opciones-ECOTURIST:");
 			    System.out.println("1. Agregar Producto");
 			    System.out.println("0. Cerrar Sesion");
 			   
-			    int option = scanner.nextInt();
-
+				option = scanner.nextInt();
+			    
 			    switch (option) {
 			        case 1:
 			            //crear producto.
@@ -328,6 +340,7 @@ public class RestClientMain {
 			            System.out.println("Opción inválida.");
 			            break;
 			    }
+				scanner.close();
 			}
 		}
 
@@ -339,15 +352,15 @@ public class RestClientMain {
 			String age, info, username, password;
 			                System.out.println("Registro:");
 			                System.out.println("Nombre Usuario:");
-			                username = scanner.next();
+			                username = scanner.nextLine();
 			                System.out.println("Contraseña:");
-			                password = scanner.next();
+			                password = scanner.nextLine();
 							System.out.println("Edad:");
-			                age = scanner.next();
+			                age = scanner.nextLine();
 							System.out.println("Descripcion:");
-			                info = scanner.next();
+							info = scanner.nextLine();
 			                
-							register(username, password,age, info);
+							boolean respuesta = register(username, password,age, info);
 		}
 
 	}
